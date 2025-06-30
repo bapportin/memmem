@@ -28,7 +28,7 @@
 % ------------------------------------------------
 % Title and Author Information
 % ------------------------------------------------
-\title{CNN Improved Transformer without positional Encoding with memory}
+\title{Memory mapped Memory for transformers}
 \author{
   Bastian Apportin\thanks{Corresponding author: \texttt{bastian.apportin@joomo.de}} \\
   \normalsize Joomo GmbH \\
@@ -53,13 +53,13 @@
 % Provide a concise summary of the entire paper (150-250 words).
 % Include background, methods, results, and conclusions.
 The success of LLM's is mainly based on the astonishing capabilities of the Transformer Architecture. 
-Which does a grat job in catching long range dependencies.
+Which does a great job in catching long range dependencies.
 
 The positional encoding used in Transformers solves the problem of conbtext awarness, but limits the distance a transformer can look. What we want is aktually 
 to keep the context awarness of the architecture, like distance memories coming back, influencing your current thoughts.
 
 We've tried a lot of different aproaches like ALiBi or placing cnn's in the key/query calculations, but none of them worked like we expected. All the limited
-experiments we did worked significantly better when using RoPE like positin encodings. So maybe, we don't need to remove them.
+experiments we did worked significantly better when using RoPE like positin encodings. But maybe, we don't need to remove them.
 
 The RoPE embedding can be seen as an offset plus content adressing. The offset is the rotation and the mixture of the frequencies can adress sharper or broader position
 back from the current position. 
