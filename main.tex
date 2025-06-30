@@ -1,0 +1,234 @@
+% ------------------------------------------------
+% LaTeX Template for ML/AI Research Paper
+% ------------------------------------------------
+
+\documentclass[11pt]{article}
+
+% ------------------------------------------------
+% Packages
+% ------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{natbib}          % For bibliography
+\usepackage{geometry}        % For adjusting margins
+\usepackage{times}           % For Times New Roman font
+\usepackage{float}           % For controlling float positions
+\usepackage{booktabs}        % For professional-looking tables
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage{tikz}
+
+% ------------------------------------------------
+% Page Setup
+% ------------------------------------------------
+\geometry{margin=1in}
+
+% ------------------------------------------------
+% Title and Author Information
+% ------------------------------------------------
+\title{CNN Improved Transformer without positional Encoding with memory}
+\author{
+  Bastian Apportin\thanks{Corresponding author: \texttt{bastian.apportin@joomo.de}} \\
+  \normalsize Joomo GmbH \\
+%  \and
+%  Co-author Name \\
+%  \normalsize Co-author Affiliation \\
+%  % Add more authors if necessary
+}
+\date{\today}
+
+% ------------------------------------------------
+% Document Begins
+% ------------------------------------------------
+\begin{document}
+
+\maketitle
+
+% ------------------------------------------------
+% Abstract
+% ------------------------------------------------
+\begin{abstract}
+% Provide a concise summary of the entire paper (150-250 words).
+% Include background, methods, results, and conclusions.
+The success of LLM's is mainly based on the astonishing capabilities of the Transformer Architecture. 
+Which does a grat job in catching long range dependencies.
+
+The positional encoding used in Transformers solves the problem of conbtext awarness, but limits the distance a transformer can look. What we want is aktually 
+to keep the context awarness of the architecture, like distance memories coming back, influencing your current thoughts.
+
+We've tried a lot of different aproaches like ALiBi or placing cnn's in the key/query calculations, but none of them worked like we expected. All the limited
+experiments we did worked significantly better when using RoPE like positin encodings. So maybe, we don't need to remove them.
+
+The RoPE embedding can be seen as an offset plus content adressing. The offset is the rotation and the mixture of the frequencies can adress sharper or broader position
+back from the current position. 
+
+
+
+\end{abstract}
+% Optionally, you can add keywords
+% \vspace{0.5cm}
+% \noindent\textbf{Keywords:} Keyword1, Keyword2, Keyword3
+
+% ------------------------------------------------
+% Main Content
+% ------------------------------------------------
+
+% 1. Introduction
+\section{Introduction}
+% Introduce the topic, establish the importance, and state the main contributions.
+
+The transformer architecture is self attention as its core. The worst and best part of that is, that there is no local context. Therefore 
+most Transformer architectures apply some kind of positional encoding. This positional encoding solves the problem of the missing local context
+but introduces the problem that for long distances the 'context' or distance matters as well. Therefore the view of site can not be infinite, which 
+effectivly limits memorizing things by that mechanism.
+
+The RoPE embedding can be seen as an offset plus content adressing. The offset is the rotation and the mixture of the frequencies can adress sharper or broader position ranges
+back from the current position and the content are the original values of the queries and keys. 
+
+% - Context
+
+When we have positional adressing an idea came to mind, the memory mapped IO, where registers to access secondary hardware are mapped to main memory. One would write the block
+id of a harddrive to a memory position and then the content of that block will be mapped to a specific position in memory.
+
+
+
+% - Problem Statement
+% - Objectives
+% - Contributions
+% - Structure of the paper
+
+
+
+% 2. Methodology
+\section{Methodology}
+
+- use llama 3.2 1b
+- explain using rotatry embeddings with fixed 'current position'
+- map lsh like storage to defined position 0
+- search by unrotated query
+- provide a way to place memories in that storage
+- use questions that indicate that the memories where used 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{JoMoTra.jpg}
+\caption{Architecture}
+\label{fig:Architecture}
+\end{figure}
+
+% - Theoretical Background
+% - Model Architecture
+%\begin{tikzpicture}
+%\draw (0,0) -- (4,0) -- (3,2) -- (1,2) -- (0,0);
+%\end{tikzpicture}
+% - Algorithms
+% - Assumptions
+% - Implementation Details
+
+% 3. Experiments
+\section{Experiments}
+
+- define set of memories to use
+- define set of questions, that use this memories.
+
+% Describe how you tested your model and ensure reproducibility.
+% - Datasets
+% - Experimental Setup
+% - Hyperparameters
+%parameters: 92793376, conv1d(16,32,kernel=7) conv1d(32,512,kernel=7) 32*block_layer(hidden_size=512 ) conv1d(512,258,kernel=3)
+%parameters: 400096, conv1d(16,32,kernel=7) conv1d(32,32,kernel=7) 32*block_layer(hidden_size=32 ) conv1d(32,258,kernel=3) loss=3.6
+% - Evaluation Metrics
+
+% 4. Results
+\section{Results}
+% Present the findings of your experiments.
+% - Quantitative Results (Use tables and figures)
+% - Qualitative Results
+% - Comparisons
+% - Statistical Analysis
+
+% Example of including a figure
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{path/to/your/image.png}
+%     \caption{Caption of the figure.}
+%     \label{fig:label}
+% \end{figure}
+
+% Example of including a table
+% \begin{table}[H]
+%     \centering
+%     \caption{Caption of the table.}
+%     \label{tab:label}
+%     \begin{tabular}{lcc}
+%         \toprule
+%         Header1 & Header2 & Header3 \\
+%         \midrule
+%         Row1 & Data & Data \\
+%         Row2 & Data & Data \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% 5. Discussion
+\section{Discussion}
+% Interpret the results and discuss their implications.
+% - Insights
+% - Limitations
+% - Practical Implications
+% - Theoretical Implications
+
+% 6. Conclusion
+\section{Conclusion}
+% Summarize the research and suggest future directions.
+
+We successfully removed the positional encodings from the transformer architecture by adding cnn driven local context and thereby 
+offered a way to have infinite context size. This can lead to large language models that do actually have a memory. 
+
+
+
+% - Summary of findings
+% - Significance
+% - Future Work
+
+% 7. Related Work
+\section{Related Work}
+% Situate your research within the existing body of work.
+% - Literature Review
+% - Critical Analysis
+% - Positioning
+
+% 8. Acknowledgments
+\section*{Acknowledgments}
+% Credit those who contributed to the research but are not listed as authors.
+% - Funding Sources
+% - Collaborations
+
+% ------------------------------------------------
+% References
+% ------------------------------------------------
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ------------------------------------------------
+% Appendices (Optional)
+% ------------------------------------------------
+\appendix
+
+\section{Appendix Title}
+% Include supplementary material that supports the paper but is too detailed for the main text.
+% - Mathematical Proofs
+% - Additional Figures or Tables
+% - Code Listings
+
+% Example of an equation
+% \begin{equation}
+%     E = mc^2
+% \end{equation}
+
+% ------------------------------------------------
+% Document Ends
+% ------------------------------------------------
+\end{document}
