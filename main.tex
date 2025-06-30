@@ -104,6 +104,14 @@ id of a harddrive to a memory position and then the content of that block will b
 % 2. Methodology
 \section{Methodology}
 
+we use the llama 3.2 1b model for our experiment, since that is a size we can still handle.
+
+the llama model uses RoPE 
+
+We think of the current position as the anchor and place the mapped memories at a fixed negative offset. For ease of understanding
+we place the current position at 4096 and the memory map at 0. This way we can store the unrotated keys and query them using a kind
+of LSH. The algorithm is an aproximation and the model ist not trained for that explicitly. We'll see if that actually works.
+
 - use llama 3.2 1b
 - explain using rotatry embeddings with fixed 'current position'
 - map lsh like storage to defined position 0
