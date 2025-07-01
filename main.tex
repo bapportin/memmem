@@ -106,25 +106,37 @@ id of a harddrive to a memory position and then the content of that block will b
 
 we use the llama 3.2 1b model for our experiment, since that is a size we can still handle.
 
-the llama model uses RoPE 
+the llama model uses RoPE. RoPE implements an influence of relative distance. So it's not important what actual position(id) the
+token has. The result will be the same if we shift the wohle sequence.
 
 We think of the current position as the anchor and place the mapped memories at a fixed negative offset. For ease of understanding
 we place the current position at 4096 and the memory map at 0. This way we can store the unrotated keys and query them using a kind
 of LSH. The algorithm is an aproximation and the model ist not trained for that explicitly. We'll see if that actually works.
 
-- use llama 3.2 1b
-- explain using rotatry embeddings with fixed 'current position'
-- map lsh like storage to defined position 0
-- search by unrotated query
-- provide a way to place memories in that storage
-- use questions that indicate that the memories where used 
+We can now store unrotated older key,value pairs in an LSH like strukture and search with the rotated queries. The queried results 
+can be appended to the key and value tensors before the attention calculation. This way relevant memories from the storage can
+'come to mind' and influence the generated sequence.
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.2]{JoMoTra.jpg}
-\caption{Architecture}
-\label{fig:Architecture}
-\end{figure}
+This mechanism can probably improved when the model is trained (another fine tuning step maybe) with that mechanism in place. In 
+addition this mechanism can be used to memory map other mechanisms. For example we have a transformer model that generates limb 
+movements from camera inputs and an llm to understand and generate text. We can now memory map those models into each other - potentially
+with a linear transformation in between. So the text model has a limited view on some key,values from the vision/limb model and vise versa.
+
+For now we want to place memories in the storage and ask questions where the answer can show that knowledge from the memory was aktually used.
+
+%- use llama 3.2 1b
+%- explain using rotatry embeddings with fixed 'current position'
+%- map lsh like storage to defined position 0
+%- search by unrotated query
+%- provide a way to place memories in that storage
+%- use questions that indicate that the memories where used 
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[scale=0.2]{JoMoTra.jpg}
+%\caption{Architecture}
+%\label{fig:Architecture}
+%\end{figure}
 
 % - Theoretical Background
 % - Model Architecture
@@ -138,6 +150,8 @@ of LSH. The algorithm is an aproximation and the model ist not trained for that 
 % 3. Experiments
 \section{Experiments}
 
+To do useful experiments we will use fairy tales that we will put to the memory and a set of commands we ask the model
+like versions of 'tell me a story about ...' 
 - define set of memories to use
 - define set of questions, that use this memories.
 
