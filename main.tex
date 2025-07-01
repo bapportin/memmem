@@ -152,8 +152,75 @@ For now we want to place memories in the storage and ask questions where the ans
 
 To do useful experiments we will use fairy tales that we will put to the memory and a set of commands we ask the model
 like versions of 'tell me a story about ...' 
-- define set of memories to use
-- define set of questions, that use this memories.
+
+for the dataset we use the 
+
+\begin{itemize}
+\item https://www.kaggle.com/datasets/cuddlefish/fairy-tales/data
+\end{itemize}
+
+dataset from kaggle. 
+
+For the Questions we asked chatgpt to produce context free questions that would be influenced when reading one of the fairy tailes before. The resulting Questions:
+
+\begin{itemize}
+\item What kind of person do you think is most likely to succeed in a difficult situation?
+\begin{itemize}
+\item A reader of To Your Good Health! might say “a trickster,” while Lovely Ilonka might lead to “a brave and clever person,” and Lucky Luck could prompt “someone with good fortune.”
+\end{itemize}
+
+\item If someone has a secret, should they always tell it? Why or why not?
+\begin{itemize}
+\item Answers would differ strongly between The Boy Who Could Keep a Secret, The Language of Beasts, or someone who hasn't read any tale.
+\end{itemize}
+
+\item Do you think it’s better to be lucky or smart?
+\begin{itemize}
+\item A Lucky Luck reader may favor luck, while The Hairy Man or Seven Simons might push someone toward cleverness or teamwork.
+\end{itemize}
+
+\item What kinds of help are most valuable — magical, practical, or social?
+\begin{itemize}
+\item A reader of The Seven Simons may argue for teamwork (practical), while Lovely Ilonka or The Hairy Man could lead someone to defend magical help.
+\end{itemize}
+
+\item Is silence ever more powerful than speaking?
+\begin{itemize}
+\item The Language of Beasts or The Boy Who Could Keep a Secret readers might say yes; others may disagree.
+\end{itemize}
+
+\item How should someone deal with people in power who are being unfair?
+\begin{itemize}
+\item Readers of To Your Good Health! may lean toward rebellion or trickery, while others might suggest patience, service, or outwitting.
+\end{itemize}
+
+\item If you could have one unusual skill, what would it be and why?
+\begin{itemize}
+\item The Seven Simons readers might recall specific skills (e.g., building towers, spying from afar) and answer accordingly.
+\end{itemize}
+
+\item What makes someone truly trustworthy?
+\begin{itemize}
+\item Answers might reflect how characters like the boy in The Hairy Man or The Boy Who Could Keep a Secret prove themselves.
+\end{itemize}
+
+\item Do you believe people can change their fate? Why or why not?
+\begin{itemize}
+\item Some tales lean toward predestination (Lucky Luck), others toward personal effort (Lovely Ilonka, The Hairy Man).
+\end{itemize}
+
+\item Can disobedience ever be a good thing?
+\begin{itemize}
+\item Characters in The Hairy Man or The Language of Beasts disobey to their benefit — this could spark a nuanced response from someone who read those stories.
+\end{itemize}
+
+\end{itemize}
+
+we will use this question for now together with the fairy tails (Lovely Ilonka, Lucky Luck, The Hairy Man, To Your Good Health!, The Story of the Seven Simons, The Language of Beasts or The Boy Who Could Keep A Secret) or none and see if the generated answers lead to results that depend on the memory. 
+
+
+%- define set of memories to use
+%- define set of questions, that use this memories.
 
 % Describe how you tested your model and ensure reproducibility.
 % - Datasets
@@ -206,8 +273,6 @@ like versions of 'tell me a story about ...'
 \section{Conclusion}
 % Summarize the research and suggest future directions.
 
-We successfully removed the positional encodings from the transformer architecture by adding cnn driven local context and thereby 
-offered a way to have infinite context size. This can lead to large language models that do actually have a memory. 
 
 
 
